@@ -7,6 +7,7 @@ import Sectors from "@/components/Sectors";
 import Capabilities from "@/components/Capabilities";
 import Approach from "@/components/Approach";
 import TrackRecord from "@/components/TrackRecord";
+import Clients from "@/components/Clients";
 import Technology from "@/components/Technology";
 import Standards from "@/components/Standards";
 import Contact from "@/components/Contact";
@@ -24,6 +25,7 @@ export default function Home() {
       <Capabilities />
       <Approach />
       <TrackRecord />
+      <Clients />
       <Technology />
       <Standards />
       <Contact />

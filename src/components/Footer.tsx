@@ -1,55 +1,104 @@
 "use client";
 
-const links = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Sectors", href: "#sectors" },
-  { label: "Track Record", href: "#track-record" },
-  { label: "Contact", href: "#contact" },
+import { Linkedin, Mail, MapPin } from "lucide-react";
+
+const columns = [
+  {
+    heading: "Services",
+    links: [
+      { label: "Land survey", href: "#services" },
+      { label: "Marine and coastal", href: "#services" },
+      { label: "Mapping and GIS", href: "#services" },
+      { label: "Seismic and oil field", href: "#services" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About", href: "#about" },
+      { label: "Sectors", href: "#sectors" },
+      { label: "Track record", href: "#track-record" },
+      { label: "Clients", href: "#clients" },
+    ],
+  },
+  {
+    heading: "Capabilities",
+    links: [
+      { label: "Technology", href: "#technology" },
+      { label: "Standards", href: "#standards" },
+      { label: "Approach", href: "#approach" },
+    ],
+  },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-ink-950">
-      <div className="mx-auto max-w-content px-6 py-14">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <div>
-            <p className="font-viga text-xl text-white">
-              LAND<span className="text-accent"> Survey</span>
-            </p>
-            <p className="mt-2 text-sm text-slatey-400">
-              Geospatial and surveying engineering.
-            </p>
-          </div>
+    <footer className="flex w-full flex-col bg-[#F2F0E9] text-[#1B1A16]">
+      <section className="w-full px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {columns.map((col) => (
+            <div key={col.heading} className="flex flex-col space-y-6">
+              <h3 className="tech-mono text-[11px] uppercase tracking-[0.18em] text-[#9A9686]">
+                {col.heading}
+              </h3>
+              <ul className="flex flex-col space-y-4">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      className="text-xl font-medium tracking-[-0.01em] text-[#1B1A16] transition-colors hover:text-[#B6841C] sm:text-2xl"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
-          <nav className="flex flex-wrap gap-x-8 gap-y-3">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="text-sm text-slatey-300 transition-colors hover:text-white"
-              >
-                {l.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="text-sm text-slatey-400 md:text-right">
+          <div className="flex flex-col space-y-6">
+            <h3 className="tech-mono text-[11px] uppercase tracking-[0.18em] text-[#9A9686]">
+              Connect
+            </h3>
             <a
               href="mailto:info@landsurvey-intl.com"
-              className="text-slatey-200 transition-colors hover:text-accent"
+              className="break-words text-xl font-medium tracking-[-0.01em] text-[#1B1A16] transition-colors hover:text-[#B6841C] sm:text-2xl"
             >
               info@landsurvey-intl.com
             </a>
-            <p className="mt-2">Company registered in England and Wales.</p>
-            <p>Company number to be added once registration completes.</p>
+            <a
+              href="#contact"
+              className="tech-mono text-[11px] uppercase tracking-[0.14em] text-[#B6841C] hover:text-[#1B1A16]"
+            >
+              Request a consultation
+            </a>
           </div>
         </div>
+      </section>
 
-        <div className="mt-12 hairline" />
-        <p className="mt-6 text-xs text-slatey-400">
-          Copyright {new Date().getFullYear()} LAND Survey. All rights reserved.
-        </p>
+      <div className="w-full bg-[#16150F] px-5 py-10 sm:px-8 lg:px-12">
+        <div className="mx-auto flex w-full max-w-[1400px] flex-col items-center justify-between gap-6 md:flex-row">
+          <a href="#top" className="font-viga text-lg tracking-wide text-[#F2F0E9]">
+            LAND<span className="text-[#EBA10C]"> SURVEY</span>
+          </a>
+
+          <div className="flex flex-col items-center gap-6 md:flex-row md:gap-12">
+            <span className="tech-mono text-[11px] uppercase tracking-[0.12em] text-[#9A9686]">
+              Copyright {new Date().getFullYear()} LAND Survey. All rights reserved.
+            </span>
+            <div className="flex items-center gap-6 text-[#C9C5B6]">
+              <a href="#" aria-label="LinkedIn" className="transition-colors hover:text-[#EBA10C]">
+                <Linkedin className="h-5 w-5" strokeWidth={2} />
+              </a>
+              <a href="mailto:info@landsurvey-intl.com" aria-label="Email" className="transition-colors hover:text-[#EBA10C]">
+                <Mail className="h-5 w-5" strokeWidth={2} />
+              </a>
+              <a href="#contact" aria-label="Location" className="transition-colors hover:text-[#EBA10C]">
+                <MapPin className="h-5 w-5" strokeWidth={2} />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

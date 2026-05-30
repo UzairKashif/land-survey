@@ -1,136 +1,193 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useState } from "react";
-import FadeContent from "./reactbits/FadeContent";
-import SpotlightCard from "./reactbits/SpotlightCard";
-import GradientText from "./reactbits/GradientText";
+import { ArrowUpRight } from "lucide-react";
+
+const inputClass =
+  "w-full border-b border-[#1B1A16]/25 bg-transparent pb-3 text-[#1B1A16] placeholder-[#9A9686] outline-none transition-colors focus:border-[#1B1A16]";
 
 export default function Contact() {
-  const [sent, setSent] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Wire this to Formspree, Resend, or a Next.js route handler before launch.
-    setSent(true);
+    // Wire to Formspree, Resend, or a Next.js route handler before launch.
+    setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-content px-6 py-28">
-      <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <div>
-          <FadeContent>
-            <p className="mb-4 text-sm uppercase tracking-[0.28em] text-accent">
-              Contact
-            </p>
-          </FadeContent>
-          <FadeContent delay={80}>
-            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              Let us talk about <GradientText>your project</GradientText>.
-            </h2>
-          </FadeContent>
-          <FadeContent delay={160}>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-slatey-300">
-              Tell us about the survey, the site, and the timeline. We will respond
-              with a clear view of scope, method, and the team for the job.
-            </p>
-          </FadeContent>
-
-          <FadeContent delay={220}>
-            <div className="mt-10 space-y-6">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slatey-400">
-                  United Kingdom registered office
-                </p>
-                <a
-                  href="mailto:info@landsurvey-intl.com"
-                  className="mt-1.5 block text-base text-white transition-colors hover:text-accent"
-                >
-                  info@landsurvey-intl.com
-                </a>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slatey-400">
-                  Regional delivery
-                </p>
-                <p className="mt-1.5 text-base text-slatey-200">
-                  Operational delivery across Egypt, Libya, South Sudan, and the
-                  wider Middle East and North Africa region.
-                </p>
-              </div>
+    <section
+      id="contact"
+      className="w-full bg-[#F2F0E9] py-20 text-[#1B1A16] sm:py-28"
+    >
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left: company info */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="tech-mono mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
+              >
+                <span className="h-px w-8 bg-[#EBA10C]" />
+                Contact
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="max-w-md text-2xl font-medium leading-tight tracking-[-0.01em] sm:text-3xl"
+              >
+                Tell us about the survey, the site, and the timeline. We respond
+                with scope, method, and the team for the job.
+              </motion.h2>
             </div>
-          </FadeContent>
-        </div>
 
-        <FadeContent delay={200}>
-          <SpotlightCard className="p-8">
-            {sent ? (
-              <div className="flex min-h-[18rem] flex-col items-center justify-center text-center">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent">
-                  ✓
-                </div>
-                <p className="text-lg font-semibold text-white">
-                  Thank you for your enquiry.
-                </p>
-                <p className="mt-2 max-w-xs text-sm text-slatey-300">
-                  Connect this form to your email service to start receiving
-                  messages. We have logged your interest locally for now.
-                </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="mt-16 space-y-8 lg:mt-0"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#1B1A16]/25">
+                <span className="font-viga text-base text-[#1B1A16]">LS</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Name" name="name" />
-                  <Field label="Company" name="company" />
-                </div>
-                <Field label="Email" name="email" type="email" />
-                <Field label="Project type" name="project" />
+
+              <div className="space-y-4 text-sm text-[#6F6B5E]">
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-[0.2em] text-slatey-400">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full rounded-lg border border-white/12 bg-ink-950/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-slatey-400 focus:border-accent/60"
-                    placeholder="Briefly describe the survey and the site."
-                  />
+                  <p className="font-medium text-[#1B1A16]">LAND Survey</p>
+                  <p>United Kingdom registered office</p>
+                  <p>Delivery across Africa and the Middle East</p>
                 </div>
+                <div className="tech-mono flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.12em]">
+                  <a
+                    href="mailto:info@landsurvey-intl.com"
+                    className="transition-colors hover:text-[#1B1A16]"
+                  >
+                    info@landsurvey-intl.com
+                  </a>
+                  <a href="#" className="transition-colors hover:text-[#1B1A16]">
+                    LinkedIn
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: form */}
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="mb-12 text-5xl font-medium tracking-[-0.02em] sm:text-6xl lg:mb-16"
+            >
+              Request a consultation
+            </motion.h2>
+
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="rounded-2xl border border-[#1B1A16]/15 bg-[#ECE8DE] p-8"
+              >
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#EBA10C] text-[#1B1A16]">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <p className="text-lg font-medium">Thank you for your enquiry.</p>
+                <p className="mt-2 max-w-sm text-sm text-[#6F6B5E]">
+                  Connect this form to your email service to start receiving
+                  messages. Your interest is logged locally for now.
+                </p>
+              </motion.div>
+            ) : (
+              <motion.form
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                onSubmit={handleSubmit}
+                className="space-y-8"
+              >
+                <div className="grid gap-8 sm:grid-cols-2">
+                  <input type="text" placeholder="First name" required className={inputClass} />
+                  <input type="text" placeholder="Last name" required className={inputClass} />
+                </div>
+                <input type="email" placeholder="Email" required className={inputClass} />
+                <input type="text" placeholder="Company" className={inputClass} />
+                <input type="text" placeholder="Project type" className={inputClass} />
+                <textarea
+                  placeholder="Tell us about the survey and the site"
+                  rows={2}
+                  required
+                  className={`${inputClass} resize-none`}
+                />
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setAgreed(!agreed)}
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                      agreed
+                        ? "border-[#1B1A16] bg-[#1B1A16]"
+                        : "border-[#9A9686] bg-transparent"
+                    }`}
+                    aria-pressed={agreed}
+                    aria-label="Agree to privacy statement"
+                  >
+                    {agreed && (
+                      <svg
+                        className="h-3 w-3 text-[#F2F0E9]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={3}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
+                  <label className="text-sm text-[#6F6B5E]">
+                    I have read and understood the{" "}
+                    <a href="#" className="underline transition-colors hover:text-[#1B1A16]">
+                      privacy statement
+                    </a>
+                  </label>
+                </div>
+
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-ink-950 transition-transform hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#1B1A16] px-10 py-4 text-base font-medium text-[#F2F0E9] transition-transform hover:scale-[1.03]"
                 >
                   Send enquiry
+                  <ArrowUpRight className="h-4 w-4" />
                 </button>
-              </form>
+              </motion.form>
             )}
-          </SpotlightCard>
-        </FadeContent>
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-}: {
-  label: string;
-  name: string;
-  type?: string;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-xs uppercase tracking-[0.2em] text-slatey-400">
-        {label}
-      </label>
-      <input
-        type={type}
-        name={name}
-        required
-        className="w-full rounded-lg border border-white/12 bg-ink-950/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-slatey-400 focus:border-accent/60"
-      />
-    </div>
   );
 }

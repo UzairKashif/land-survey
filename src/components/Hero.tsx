@@ -139,8 +139,52 @@ export function Hero16() {
   );
 }
 
-/** Drifting topographic contour lines with spot heights. */
+const CX = 430;
+const CY = 420;
+
+/** Deterministic radius for a contour ring at a given angle. */
+function contourRadius(ring: number, a: number) {
+  const baseR = 64 + ring * 29;
+  const noise =
+    Math.sin(a * 3 + ring * 0.9) +
+    Math.sin(a * 5 + ring * 1.7) * 0.5 +
+    Math.sin(a * 2 - ring * 0.6) * 0.6 +
+    Math.sin(a * 7 + ring) * 0.25;
+  return baseR + noise * (9 + ring * 1.15);
+}
+
+function pointOn(ring: number, a: number) {
+  const r = contourRadius(ring, a);
+  return { x: CX + r * Math.cos(a), y: CY + r * 0.9 * Math.sin(a) };
+}
+
+function buildContourPath(ring: number) {
+  const steps = 96;
+  let d = "";
+  for (let s = 0; s <= steps; s++) {
+    const a = (s / steps) * Math.PI * 2;
+    const { x, y } = pointOn(ring, a);
+    d += `${s === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)} `;
+  }
+  return d + "Z";
+}
+
+/** Drifting topographic contour field with index lines, elevation labels, and spot heights. */
 function TopoField() {
+  const rings = Array.from({ length: 12 }, (_, i) => i);
+  const labels = [
+    { ring: 2, v: "20" },
+    { ring: 5, v: "50" },
+    { ring: 8, v: "80" },
+    { ring: 10, v: "100" },
+  ];
+  const spots = [
+    { x: CX, y: CY, label: "68.4" },
+    { x: CX + 130, y: CY - 150, label: "52.1" },
+    { x: CX - 120, y: CY + 160, label: "47.9" },
+    { x: CX + 40, y: CY + 230, label: "61.3" },
+  ];
+
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
       {/* faint engineering grid */}
@@ -157,27 +201,59 @@ function TopoField() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, delay: 0.4 }}
-        viewBox="0 0 800 800"
-        className="absolute -right-32 top-1/2 -translate-y-1/2 h-[150%] w-auto animate-drift"
+        viewBox="0 0 860 840"
+        className="absolute -right-40 top-1/2 -translate-y-1/2 h-[155%] w-auto animate-drift"
         fill="none"
       >
-        {Array.from({ length: 9 }).map((_, i) => {
-          const s = 1 - i * 0.1;
+        {rings.map((i) => {
+          const index = i % 3 === 0;
           return (
             <path
               key={i}
-              d="M400 150 C545 150 675 245 700 390 C722 520 640 645 480 678 C345 706 185 628 158 478 C133 338 235 150 400 150 Z"
+              d={buildContourPath(i)}
               stroke="#1B1A16"
-              strokeOpacity={i === 3 ? 0.28 : 0.12}
-              strokeWidth={i === 3 ? 1.4 : 1}
-              transform={`translate(400 414) scale(${s}) translate(-400 -414)`}
+              strokeOpacity={index ? 0.24 : 0.1}
+              strokeWidth={index ? 1.5 : 1}
             />
           );
         })}
-        {/* spot heights, like a real topo sheet */}
-        <SpotHeight x={400} y={414} label="4.6" />
-        <SpotHeight x={560} y={300} label="3.9" />
-        <SpotHeight x={300} y={560} label="5.3" />
+
+        {/* elevation labels riding the index contours */}
+        {labels.map(({ ring, v }) => {
+          const a = -0.62;
+          const { x, y } = pointOn(ring, a);
+          return (
+            <g key={ring} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
+              <rect x={-13} y={-9} width={26} height={16} fill="#F2F0E9" />
+              <text
+                x={0}
+                y={3}
+                textAnchor="middle"
+                fill="#6F6B5E"
+                fontSize="12"
+                style={{ fontFamily: "'SF Mono', monospace" }}
+              >
+                {v}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* spot heights */}
+        {spots.map((s) => (
+          <SpotHeight key={s.label} x={s.x} y={s.y} label={s.label} />
+        ))}
+
+        {/* benchmark mark */}
+        <g transform={`translate(${CX + 180} ${CY + 70})`}>
+          <path
+            d="M0 -7 L6 5 L-6 5 Z"
+            fill="none"
+            stroke="#B6841C"
+            strokeWidth="1.4"
+          />
+          <circle cx={0} cy={1} r={1.4} fill="#B6841C" />
+        </g>
       </motion.svg>
     </div>
   );
@@ -186,12 +262,13 @@ function TopoField() {
 function SpotHeight({ x, y, label }: { x: number; y: number; label: string }) {
   return (
     <g>
-      <circle cx={x} cy={y} r={3} fill="#EBA10C" />
+      <line x1={x - 5} y1={y} x2={x + 5} y2={y} stroke="#EBA10C" strokeWidth="1.2" />
+      <line x1={x} y1={y - 5} x2={x} y2={y + 5} stroke="#EBA10C" strokeWidth="1.2" />
       <text
         x={x + 10}
         y={y + 4}
         fill="#6F6B5E"
-        fontSize="15"
+        fontSize="13"
         style={{ fontFamily: "'SF Mono', monospace" }}
       >
         {label}

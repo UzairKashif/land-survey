@@ -23,7 +23,7 @@ const pillars = [
 
 export default function Capabilities() {
   return (
-    <section className="border-t border-white/10 bg-ink-900/40">
+    <section id="capabilities" className="border-t border-white/10 bg-ink-900/40">
       <div className="mx-auto max-w-content px-6 py-28">
         <FadeContent>
           <p className="mb-4 text-sm uppercase tracking-[0.28em] text-accent">

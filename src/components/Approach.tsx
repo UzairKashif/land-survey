@@ -23,7 +23,7 @@ const steps = [
 
 export default function Approach() {
   return (
-    <section className="mx-auto max-w-content px-6 py-28">
+    <section id="approach" className="mx-auto max-w-content px-6 py-28">
       <FadeContent>
         <p className="mb-4 text-sm uppercase tracking-[0.28em] text-accent">
           How we work

@@ -18,7 +18,7 @@ const stack = [
 
 export default function Technology() {
   return (
-    <section className="mx-auto max-w-content px-6 py-28">
+    <section id="technology" className="mx-auto max-w-content px-6 py-28">
       <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div>
           <FadeContent>
