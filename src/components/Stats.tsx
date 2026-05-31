@@ -93,8 +93,6 @@ export default function Stats() {
           transition={{ duration: 0.4 }}
           className="tech-mono mb-5 flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
         >
-          <span className="h-px w-8 bg-[#EBA10C]" />
-          Track record
         </motion.p>
 
         <motion.h2
@@ -102,7 +100,7 @@ export default function Stats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center text-3xl font-medium leading-[1.1] tracking-[-0.02em] sm:text-5xl md:text-6xl"
+          className="text-center text-3xl font-medium leading-[1.12] tracking-[-0.02em] sm:text-4xl md:text-5xl"
         >
           Proof, <em className="font-serif italic font-normal">measured</em> in the field.
         </motion.h2>

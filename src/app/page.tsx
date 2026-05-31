@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrustStrip from "@/components/TrustStrip";
+// import TrustStrip from "@/components/TrustStrip";
 import Services from "@/components/Services";
-import Sectors from "@/components/Sectors";
+// import Sectors from "@/components/Sectors";
 import Stats from "@/components/Stats";
 import Projects from "@/components/Projects";
 import Clients from "@/components/Clients";
@@ -16,9 +16,9 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <TrustStrip />
+      {/* <TrustStrip /> */}
       <Services />
-      <Sectors />
+      {/* <Sectors /> */}
       <Stats />
       <Projects />
       <Clients />

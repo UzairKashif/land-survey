@@ -14,6 +14,7 @@ type Project = {
   scale: string;
   client: string;
   motif: Motif;
+  image: string;
 };
 
 const projects: Project[] = [
@@ -26,6 +27,7 @@ const projects: Project[] = [
     scale: "2,100 ha / 150+ control points",
     client: "Asfi Libya Construction (SV LIDCO)",
     motif: "cadastral",
+    image: "/projects/p-01.png",
   },
   {
     id: 2,
@@ -36,6 +38,7 @@ const projects: Project[] = [
     scale: "6,800 km seismic lines",
     client: "Apache / Geofizika",
     motif: "seismic",
+    image: "/projects/p-02.png",
   },
   {
     id: 3,
@@ -46,6 +49,7 @@ const projects: Project[] = [
     scale: "850 ha coastal zone",
     client: "Alkaleej Tourism and Investment",
     motif: "coastal",
+    image: "/projects/p-03.png",
   },
   {
     id: 4,
@@ -56,6 +60,7 @@ const projects: Project[] = [
     scale: "162 km pipeline",
     client: "Khalda for Oil / Petrojet",
     motif: "pipeline",
+    image: "/projects/p-04.png",
   },
   {
     id: 5,
@@ -66,6 +71,7 @@ const projects: Project[] = [
     scale: "500 km waterway",
     client: "Nile Transportation Authority",
     motif: "hydrographic",
+    image: "/projects/p-05.png",
   },
 ];
 
@@ -86,7 +92,6 @@ export default function Projects() {
           transition={{ duration: 0.4 }}
           className="tech-mono mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
         >
-          <span className="h-px w-8 bg-[#EBA10C]" />
           Completed projects
         </motion.p>
         <motion.h2
@@ -142,7 +147,7 @@ export default function Projects() {
                         activeId === p.id ? "text-[#9A9686]" : "text-[#6F6B5E]"
                       }`}
                     >
-                      {p.method} &middot; {p.year}
+                      {p.method} &middot;
                     </p>
                   </div>
                   {activeId === p.id && (
@@ -179,42 +184,25 @@ export default function Projects() {
 
 function Plate({ project }: { project: Project }) {
   return (
-    <div className="relative flex h-full flex-col p-6 sm:p-8">
-      {/* grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(235,161,12,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(235,161,12,0.06) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
+    <div className="relative h-full w-full overflow-hidden bg-white">
+      {/* project image */}
+      <img
+        src={project.image}
+        alt={`${project.title}, ${project.location}`}
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      {/* registration crosshairs */}
-      <Crosses />
 
-      {/* top row */}
-      <div className="relative flex items-start justify-between">
-        <span className="tech-mono text-[11px] uppercase tracking-[0.16em] text-[#EBA10C]">
-          Plate P-{String(project.id).padStart(2, "0")}
-        </span>
-        <span className="tech-mono text-[11px] uppercase tracking-[0.16em] text-[#6F6B5E]">
-          {project.year}
-        </span>
-      </div>
+      {/* plate label chip */}
+      <span className="tech-mono absolute left-5 top-5 rounded bg-[#16150F] px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-[#EBA10C] sm:left-6 sm:top-6">
+        {/* Plate P-{String(project.id).padStart(2, "0")} &middot; {project.year} */}
+      </span>
 
-      {/* motif */}
-      <div className="relative flex flex-1 items-center justify-center py-6">
-        <svg viewBox="0 0 400 280" className="h-full w-full" fill="none">
-          <Diagram motif={project.motif} />
-        </svg>
-      </div>
-
-      {/* metadata */}
-      <div className="relative border-t border-white/10 pt-5">
+      {/* bottom ink band behind the text */}
+      <div className="absolute inset-x-0 bottom-0 bg-[#16150F] p-6 sm:p-8">
         <p className="text-xl font-medium text-[#F2F0E9] sm:text-2xl">
           {project.location}
         </p>
-        <div className="tech-mono mt-3 grid grid-cols-1 gap-1.5 text-[11px] uppercase tracking-[0.1em] text-[#9A9686] sm:grid-cols-2">
+        <div className="tech-mono mt-3 grid grid-cols-1 gap-1.5 text-[11px] uppercase tracking-[0.1em] text-[#C9C5B6] sm:grid-cols-2">
           <span>Scale &middot; {project.scale}</span>
           <span>Method &middot; {project.method}</span>
           <span className="sm:col-span-2">Client &middot; {project.client}</span>

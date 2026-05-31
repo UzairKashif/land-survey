@@ -17,6 +17,7 @@ type Service = {
   title: string;
   desc: string;
   icon: LucideIcon;
+  image: string;
 };
 
 const services: Service[] = [
@@ -24,31 +25,37 @@ const services: Service[] = [
     title: "Land survey",
     desc: "GPS and GNSS survey, geodetic control networks, topographic survey, precise levelling, cadastral survey, site setting out, pipeline survey, and well positioning.",
     icon: Compass,
+    image: "/services/svc-01.png",
   },
   {
     title: "Marine and coastal",
     desc: "Hydrographic and bathymetric survey, oceanographic studies, coastal process analysis, marine geology, and geophysical survey across the lifecycle of a coastal structure.",
     icon: Waves,
+    image: "/services/svc-02.png",
   },
   {
     title: "Mapping and GIS",
     desc: "Aerial photogrammetry, map production, satellite imagery and remote sensing, digital terrain and elevation models, and GIS data collection and processing.",
     icon: Layers,
+    image: "/services/svc-03.png",
   },
   {
     title: "Seismic and oil field",
     desc: "2D and 3D seismic survey support, well positioning and site survey, pipeline routing and as built survey, and 3D laser scanning of rigs and plant for clash detection.",
     icon: Radio,
+    image: "/services/svc-04.png",
   },
   {
     title: "Infrastructure and engineering",
     desc: "Topographic and geodetic control for roads, railways, bridges, and tunnels, route surveys, construction surveys, and structural deformation monitoring.",
     icon: Route,
+    image: "/services/svc-05.png",
   },
   {
     title: "Special applications",
     desc: "Aeronautical Information Service for airports, archaeological registration and 3D documentation, LAAS positioning for airports and harbours, and crustal movement studies.",
     icon: Plane,
+    image: "/services/svc-06.png",
   },
 ];
 
@@ -66,7 +73,6 @@ export default function Services() {
           transition={{ duration: 0.4 }}
           className="tech-mono mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
         >
-          <span className="h-px w-8 bg-[#EBA10C]" />
           Services
         </motion.p>
 
@@ -88,8 +94,6 @@ export default function Services() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="mt-5 max-w-xl text-base text-[#6F6B5E]"
         >
-          From a single control point to a full multidisciplinary programme, we
-          cover the complete surveying lifecycle.
         </motion.p>
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
@@ -115,34 +119,50 @@ function Card({ service, index }: { service: Service; index: number }) {
       transition={{ duration: 0.35, delay: 0.05 * index }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative flex min-h-[340px] flex-col overflow-hidden rounded-2xl border border-[#1B1A16]/10 bg-[#ECE8DE] p-6 transition-colors hover:border-[#EBA10C]/50"
+      className="group relative flex min-h-[340px] flex-col overflow-hidden rounded-2xl border border-[#1B1A16]/10 p-6 transition-colors hover:border-[#EBA10C]/50"
     >
+      {/* background image */}
+      <img
+        src={service.image}
+        alt={service.title}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* permanent subtle scrim for title legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+      {/* darken on hover */}
+      <motion.div
+        initial={false}
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="absolute inset-0 bg-black/55"
+      />
+
       {/* amber glow on hover */}
       <motion.div
         initial={false}
-        animate={{ opacity: hovered ? 0.6 : 0, scale: hovered ? 1 : 0.75 }}
+        animate={{ opacity: hovered ? 0.7 : 0, scale: hovered ? 1 : 0.75 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="pointer-events-none absolute -bottom-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full blur-md"
+        className="pointer-events-none absolute -bottom-24 right-0 h-64 w-64 rounded-full blur-md"
         style={{
           background:
-            "radial-gradient(circle, rgba(235,161,12,0.55) 0%, rgba(235,161,12,0) 70%)",
+            "radial-gradient(circle, rgba(235,161,12,0.6) 0%, rgba(235,161,12,0) 70%)",
         }}
       />
 
       <div className="relative flex items-start justify-between">
         <motion.span
-          animate={{ color: hovered ? "#B6841C" : "#1B1A16" }}
+          animate={{ color: hovered ? "#EBA10C" : "#F2F0E9" }}
           transition={{ duration: 0.3 }}
           className="inline-flex"
         >
           <Icon className="h-5 w-5" />
         </motion.span>
-        <span className="tech-mono text-[11px] tracking-[0.12em] text-[#9A9686]">
+        <span className="tech-mono text-[11px] tracking-[0.12em] text-white/70">
           {String(index + 1).padStart(2, "0")} / 06
         </span>
       </div>
 
-      <p className="relative mt-4 max-w-[230px] text-xs leading-relaxed text-[#6F6B5E] sm:text-sm">
+      <p className="relative mt-4 max-w-[230px] text-xs leading-relaxed text-white/90 sm:text-sm">
         {words.map((w, wi) => (
           <motion.span
             key={wi}
@@ -165,17 +185,17 @@ function Card({ service, index }: { service: Service; index: number }) {
       </p>
 
       <div className="relative mt-auto flex items-center justify-between pt-8">
-        <span className="text-lg font-medium tracking-[-0.01em] text-[#1B1A16]">
+        <span className="text-lg font-medium tracking-[-0.01em] text-[#F2F0E9] [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
           {service.title}
         </span>
         <motion.span
           initial={false}
           animate={{
-            backgroundColor: hovered ? "#EBA10C" : "#E0DCD0",
-            color: hovered ? "#1B1A16" : "#6F6B5E",
+            backgroundColor: hovered ? "#EBA10C" : "rgba(255,255,255,0.15)",
+            color: hovered ? "#1B1A16" : "#F2F0E9",
           }}
           transition={{ duration: 0.3 }}
-          className="flex h-10 w-10 items-center justify-center rounded-full"
+          className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm"
         >
           <motion.span
             animate={{ x: hovered ? 2 : 0 }}
