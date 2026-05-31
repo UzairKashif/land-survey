@@ -73,16 +73,16 @@ const menu: Record<string, { heading: string; cards: Card[] }> = {
     heading: "Inside LAND Survey",
     cards: [
       {
-        title: "About",
-        desc: "A respected geospatial name, relaunched under a UK registered entity.",
-        href: "#about",
-        icon: Building2,
-      },
-      {
         title: "Sectors",
         desc: "Oil and gas, infrastructure, mining, government, aviation, and marine.",
         href: "#sectors",
         icon: MapPin,
+      },
+      {
+        title: "Projects",
+        desc: "Completed work across borders and sectors, from desert to seabed.",
+        href: "#projects",
+        icon: Building2,
       },
       {
         title: "Standards",
@@ -91,9 +91,9 @@ const menu: Record<string, { heading: string; cards: Card[] }> = {
         icon: ShieldCheck,
       },
       {
-        title: "Track record",
-        desc: "Delivered across borders and sectors, from desert to seabed.",
-        href: "#track-record",
+        title: "Clients",
+        desc: "Sixty one organizations across five tiers of recognition.",
+        href: "#clients",
         icon: BarChart3,
       },
     ],
@@ -142,11 +142,11 @@ export default function Navbar() {
               </button>
             ))}
             <a
-              href="#track-record"
+              href="#projects"
               onClick={close}
               className="tech-mono cursor-pointer py-2 text-[11px] uppercase tracking-[0.16em] text-[#C9C5B6] transition-colors hover:text-white"
             >
-              Track record
+              Projects
             </a>
           </div>
 
@@ -198,9 +198,9 @@ export default function Navbar() {
                 {[
                   { label: "Services", href: "#services" },
                   { label: "Sectors", href: "#sectors" },
+                  { label: "Projects", href: "#projects" },
+                  { label: "Clients", href: "#clients" },
                   { label: "Standards", href: "#standards" },
-                  { label: "Track record", href: "#track-record" },
-                  { label: "About", href: "#about" },
                   { label: "Contact", href: "#contact" },
                 ].map((l) => (
                   <a

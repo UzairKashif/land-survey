@@ -1,12 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
-import About from "@/components/About";
 import Services from "@/components/Services";
 import Sectors from "@/components/Sectors";
-import Capabilities from "@/components/Capabilities";
-import Approach from "@/components/Approach";
-import TrackRecord from "@/components/TrackRecord";
+import Stats from "@/components/Stats";
+import Projects from "@/components/Projects";
 import Clients from "@/components/Clients";
 import Technology from "@/components/Technology";
 import Standards from "@/components/Standards";
@@ -19,12 +17,10 @@ export default function Home() {
       <Navbar />
       <Hero />
       <TrustStrip />
-      <About />
       <Services />
       <Sectors />
-      <Capabilities />
-      <Approach />
-      <TrackRecord />
+      <Stats />
+      <Projects />
       <Clients />
       <Technology />
       <Standards />

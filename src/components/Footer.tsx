@@ -15,9 +15,8 @@ const columns = [
   {
     heading: "Company",
     links: [
-      { label: "About", href: "#about" },
       { label: "Sectors", href: "#sectors" },
-      { label: "Track record", href: "#track-record" },
+      { label: "Projects", href: "#projects" },
       { label: "Clients", href: "#clients" },
     ],
   },
@@ -26,7 +25,7 @@ const columns = [
     links: [
       { label: "Technology", href: "#technology" },
       { label: "Standards", href: "#standards" },
-      { label: "Approach", href: "#approach" },
+      { label: "Track record", href: "#stats" },
     ],
   },
 ];
