@@ -93,8 +93,39 @@ const allClients = [
   ...tiers.emerging,
 ];
 
+const clientLogos: Record<string, string> = {
+  // Flagship
+  "Dar Al-Handasah": "/flagship/dar-al-handasah.png",
+  "Arab Contractors": "/flagship/arab-contractors.png",
+  "Petrojet": "/flagship/petrojet.png",
+  "Hill International": "/flagship/hill-international.png",
+  "IDOM": "/flagship/idom.png",
+  "ADPI": "/flagship/adpi.jpg",
+  "Langan": "/flagship/langan.jpg",
+  "Kvaerner": "/flagship/kvaerner.png",
+  "Mobinil": "/flagship/mobinil.png",
+  "Al-Kharafi Construction": "/flagship/al-kharafi.webp",
+  // National
+  "Waha Oil": "/national/waha.jpeg",
+  "Libyan Center for Remote Sensing": "/national/libyan-remote-sensing.jpeg",
+  "Civil Aviation Authority": "/national/civil-aviation.png",
+  "Nuclear Material Authority": "/national/nuclear-material-authority.jpeg",
+  "NRIAG": "/national/nriag.jpeg",
+  "Nile Company for Road and Bridges": "/national/nile-company.jpeg",
+  "Simplex": "/national/simplex.png",
+  "Authority of River Transportation": "/national/river-transport.webp",
+  // International
+  "Magnasoft": "/international/magnasoft.webp",
+  "Coastal Environments": "/international/coastal-environments.png",
+  "HWP": "/international/hwp.png",
+  "LCE Architects": "/international/lce-architects.jpeg",
+  "Pascucci & Vannucci": "/international/pascucci-vannucci.jpeg",
+  "Idroesse Infrastructure S.p.A.": "/international/idroesse.jpeg",
+  "Norton Engineering Co. Ltd": "/international/norton-engineering.png",
+};
+
 const categories: { id: TierId; label: string }[] = [
-  { id: "all", label: "All" },
+  // { id: "all", label: "All" },
   { id: "flagship", label: "Flagship" },
   { id: "national", label: "National" },
   { id: "international", label: "International" },
@@ -103,7 +134,7 @@ const categories: { id: TierId; label: string }[] = [
 ];
 
 export default function Clients() {
-  const [active, setActive] = useState<TierId>("all");
+  const [active, setActive] = useState<TierId>("flagship");
   const list = active === "all" ? allClients : tiers[active];
 
   return (
@@ -120,8 +151,6 @@ export default function Clients() {
           transition={{ duration: 0.4 }}
           className="tech-mono mb-5 flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
         >
-          <span className="h-px w-8 bg-[#EBA10C]" />
-          Clients
         </motion.p>
 
         {/* Heading */}
@@ -195,22 +224,36 @@ export default function Clients() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="grid grid-cols-2 border-l border-t border-[#1B1A16]/10 sm:grid-cols-3 lg:grid-cols-4"
           >
-            {list.map((name, i) => (
-              <motion.div
-                key={`${active}-${name}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: Math.min(i * 0.025, 0.5) }}
-                className="group relative flex min-h-[96px] items-center justify-center border-b border-r border-[#1B1A16]/10 px-4 text-center transition-colors hover:bg-[#ECE8DD]"
-              >
-                <span className="tech-mono absolute left-2.5 top-2.5 text-[9px] tracking-[0.1em] text-[#B7B2A2] opacity-0 transition-opacity group-hover:opacity-100">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm font-medium tracking-[-0.01em] text-[#2A281F] transition-colors group-hover:text-[#B6841C] sm:text-[15px]">
-                  {name}
-                </span>
-              </motion.div>
-            ))}
+            {list.map((name, i) => {
+              const logo = clientLogos[name];
+              return (
+                <motion.div
+                  key={`${active}-${name}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: Math.min(i * 0.025, 0.5) }}
+                  className={`group relative flex min-h-[110px] items-center justify-center border-b border-r border-[#1B1A16]/10 p-4 text-center transition-colors ${
+                    logo ? "bg-white" : "hover:bg-[#ECE8DD]"
+                  }`}
+                >
+                  <span className="tech-mono absolute left-2.5 top-2.5 text-[9px] tracking-[0.1em] text-[#B7B2A2] opacity-0 transition-opacity group-hover:opacity-100">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {logo ? (
+                    <img
+                      src={logo}
+                      alt={`${name} logo`}
+                      loading="lazy"
+                      className="max-h-12 max-w-[78%] object-contain"
+                    />
+                  ) : (
+                    <span className="text-sm font-medium tracking-[-0.01em] text-[#2A281F] transition-colors group-hover:text-[#B6841C] sm:text-[15px]">
+                      {name}
+                    </span>
+                  )}
+                </motion.div>
+              );
+            })}
           </motion.div>
         </AnimatePresence>
       </div>

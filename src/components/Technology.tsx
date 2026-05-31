@@ -11,41 +11,47 @@ const features: { icon: LucideIcon; description: string }[] = [
   { icon: GaugeCircle, description: "Calibrated before every job and on a monthly cycle" },
 ];
 
-const equipment = [
-  "Trimble R7 GNSS",
-  "Trimble R8 RTK",
-  "Trimble GX Scanner",
-  "Spatial Station VX",
-  "Robotic Total Station S3",
-  "Total Station M3",
-  "DiNi Digital Level",
-  "Pathfinder ProXRS",
-  "Echo Sounder DTM9000",
-  "Juno SC Handheld",
+type Kit = { name: string; img: string };
+
+const equipment: Kit[] = [
+  { name: "Trimble R7 GNSS", img: "/equipment/Trimble-R7-GNSS.jpg" },
+  { name: "Trimble R8 RTK", img: "/equipment/Trimble-R8-RTK-GPS.jpg" },
+  { name: "Robotic Total Station S3", img: "/equipment/TrimbleS3studiofaceleft175_300.webp" },
+  { name: "Total Station M3", img: "/equipment/Trimble-Total-Station-M3-Series-Types-of-Total-Station.avif" },
+  { name: "DiNi Digital Level", img: "/equipment/dini.webp" },
+  { name: "Echo Sounder ES9000", img: "/equipment/Echo-Sounder-ES9000-10-.avif" },
+  { name: "Juno SC Handheld", img: "/equipment/juno-sc-handheld.jpg" },
 ];
 
-const software = [
-  "Trimble Business Center",
-  "Trimble Geomatics Office",
-  "AutoCAD",
-  "ArcGIS",
-  "Erdas Imagine",
-  "Geomedia Pro",
-  "HydroPro",
-  "Hypack Max",
-  "Pathfinder Office",
-  "Surfer",
+const software: Kit[] = [
+  { name: "Trimble Business Center", img: "/software/trimble.png" },
+  { name: "AutoCAD", img: "/software/autocad.png" },
+  { name: "ArcGIS", img: "/software/ArcGIS-Pro.png" },
+  { name: "Erdas Imagine", img: "/software/erdas.webp" },
+  { name: "Geomedia Pro", img: "/software/geomedia-software-500x500.webp" },
+  { name: "Hypack Max", img: "/software/hypack-logo.webp" },
+  { name: "Surfer", img: "/software/sufer.jpg" },
 ];
 
-function Tile({ name, tag }: { name: string; tag: string }) {
+function Tile({ name, img, tag }: { name: string; img: string; tag: string }) {
   return (
-    <div className="flex aspect-square w-full flex-col justify-between rounded-xl border border-[#1B1A16]/10 bg-[#ECE8DE] p-4">
-      <span className="tech-mono text-[9px] uppercase tracking-[0.16em] text-[#9A9686]">
-        {tag}
-      </span>
-      <span className="text-sm font-medium leading-snug tracking-[-0.01em] text-[#2A281F]">
-        {name}
-      </span>
+    <div className="flex aspect-square w-full flex-col overflow-hidden rounded-xl border border-[#1B1A16]/10 bg-white">
+      <div className="flex flex-1 items-center justify-center p-4">
+        <img
+          src={img}
+          alt={name}
+          loading="lazy"
+          className="max-h-full max-w-full object-contain"
+        />
+      </div>
+      <div className="border-t border-[#1B1A16]/10 bg-[#ECE8DE] px-3 py-2">
+        <span className="tech-mono block text-[8px] uppercase tracking-[0.16em] text-[#9A9686]">
+          {tag}
+        </span>
+        <span className="block truncate text-[11px] font-medium leading-tight text-[#2A281F]">
+          {name}
+        </span>
+      </div>
     </div>
   );
 }
@@ -91,8 +97,6 @@ export default function Technology() {
                 transition={{ duration: 0.4 }}
                 className="tech-mono mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
               >
-                <span className="h-px w-8 bg-[#EBA10C]" />
-                Technology
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 10 }}
@@ -112,13 +116,11 @@ export default function Technology() {
               >
                 We operate a fleet of Trimble GNSS and RTK systems, robotic total
                 stations, 3D scanners, digital levels, and echo sounders, supported
-                by industry standard processing software. Every instrument is
-                calibrated before deployment, so accuracy is never assumed, it is
-                verified.
+                by industry standard processing software.
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
               {features.map((f, i) => {
                 const Icon = f.icon;
                 return (
@@ -139,7 +141,7 @@ export default function Technology() {
                   </motion.div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
 
           {/* Right: dual marquee of instruments and software */}
@@ -152,16 +154,16 @@ export default function Technology() {
 
               <div className="relative overflow-hidden">
                 <div ref={m1} className="flex flex-col gap-4">
-                  {[...equipment, ...equipment].map((name, i) => (
-                    <Tile key={`e-${i}`} name={name} tag="Instrument" />
+                  {[...equipment, ...equipment].map((item, i) => (
+                    <Tile key={`e-${i}`} name={item.name} img={item.img} tag="" />
                   ))}
                 </div>
               </div>
 
               <div className="relative overflow-hidden">
                 <div ref={m2} className="flex flex-col gap-4">
-                  {[...software, ...software].map((name, i) => (
-                    <Tile key={`s-${i}`} name={name} tag="Software" />
+                  {[...software, ...software].map((item, i) => (
+                    <Tile key={`s-${i}`} name={item.name} img={item.img} tag="" />
                   ))}
                 </div>
               </div>

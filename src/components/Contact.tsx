@@ -34,8 +34,6 @@ export default function Contact() {
                 transition={{ duration: 0.4 }}
                 className="tech-mono mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6F6B5E]"
               >
-                <span className="h-px w-8 bg-[#EBA10C]" />
-                Contact
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -56,27 +54,8 @@ export default function Contact() {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="mt-16 space-y-8 lg:mt-0"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#1B1A16]/25">
-                <span className="font-viga text-base text-[#1B1A16]">LS</span>
-              </div>
-
               <div className="space-y-4 text-sm text-[#6F6B5E]">
-                <div>
-                  <p className="font-medium text-[#1B1A16]">LAND Survey</p>
-                  <p>United Kingdom registered office</p>
-                  <p>Delivery across Africa and the Middle East</p>
-                </div>
-                <div className="tech-mono flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.12em]">
-                  <a
-                    href="mailto:info@landsurvey-intl.com"
-                    className="transition-colors hover:text-[#1B1A16]"
-                  >
-                    info@landsurvey-intl.com
-                  </a>
-                  <a href="#" className="transition-colors hover:text-[#1B1A16]">
-                    LinkedIn
-                  </a>
-                </div>
+                
               </div>
             </motion.div>
           </div>
